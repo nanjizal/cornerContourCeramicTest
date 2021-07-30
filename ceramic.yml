@@ -1,0 +1,11 @@
+app:
+    package: mycompany.cornerContour-ceramic
+    name: cornerContour-ceramic
+    displayName: cornerContour-ceramic
+    author: My Company
+    version: '1.0'
+
+    libs:
+        - justPath
+        - cornerContour: git:https://github.com/nanjizal/cornerContour.git
+        - fracs
