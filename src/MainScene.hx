@@ -33,50 +33,24 @@ class MainScene extends Scene {
     override function preload() {
 
         // Add any asset you want to load here
-        
-        assets.add(Images.CERAMIC);
 
     }
-    /*
-    function meshStuff(){
-        var mesh = new Mesh();
-        mesh.color = Color.WHITE;
-        mesh.vertices = [ ... ]; // A list of x,y coordinates
-        mesh.indices = [ ... ]; // A list of indices to form triangles
-
-        // If you want it textured
-        mesh.uvs = [ ... ]; // A list of uv (uvx, uvy)
-        mesh.texture = someTexture;
-    }
-*/
     
     override function create() {
 
         // Called when scene has finished preloading
-
         
         mesh = new Mesh();
         drawMesh();
-        
         
         mesh.anchor(0, 0);
         mesh.pos(0, 0);
         mesh.scale( 1 );
         mesh.alpha = 1;
+        mesh.colorMapping = VERTICES;
         
         add(mesh);
-
-        // If you want it textured
-        //mesh.uvs = [ ... ]; // A list of uv (uvx, uvy)
-        //mesh.texture = someTexture;
-
-        // Create some logo scale "in" animation
-        /*
-        mesh.tween(ELASTIC_EASE_IN_OUT, 0.75, 0.0001, 1.0, function(value, time) {
-            mesh.alpha = value;
-            mesh.scale(value);
-        });
-*/
+        
         // Print some log
         log.success('Hello from ceramic :)');
 
