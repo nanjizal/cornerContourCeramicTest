@@ -81,7 +81,7 @@ class MainScene extends Scene {
      */
     public
     function drawMesh(){
-        pen2D = new Pen2D( 0x0000FF );
+        pen2D = new Pen2D( 0xFF0000FF );
         // render svg
         arcSVG();
         pen2D.currentColor = 0xff0000FF;
@@ -93,33 +93,35 @@ class MainScene extends Scene {
         mesh.vertices = [ 150, 150, 470, 400, 650, 200 ]; // A list of x,y coordinates
         mesh.indices = [ 0,1,2 ]; // A list of indices to form triangles
         */
-        // draw to canvas surface
-        pen2D.applyFill( triangle2DFill );
+        rearrageDrawData();
     }
-    
-    var count = 0;
-    public function triangle2DFill( ax: Float, ay: Float
-                                  , bx: Float, by: Float
-                                  , cx: Float, cy: Float
-                                  , ?color: Int ){
-        var l = mesh.vertices.length;
-        mesh.vertices[ l ]     = ax;
-        mesh.vertices[ l + 1 ] = ay;
-        mesh.vertices[ l + 2 ] = bx;
-        mesh.vertices[ l + 3 ] = by;
-        mesh.vertices[ l + 4 ] = cx;
-        mesh.vertices[ l + 5 ] = cy;
-        l = mesh.colors.length;
-        mesh.colors[ l ]     = 0xff000000 + color;
-        mesh.colors[ l + 1 ] = 0xff000000 + color;
-        mesh.colors[ l + 2 ] = 0xff000000 + color;
-        l = mesh.indices.length;
-        mesh.indices[ l ] = count;
-        count++;
-        mesh.indices[ l + 1 ] = count;
-        count++;
-        mesh.indices[ l + 2 ] = count;
-        count++;
+    public
+    function rearrageDrawData(){
+        var pen = pen2D;
+        var data = pen.arr;
+        var totalTriangles = Std.int( data.size/7 );
+        var count = 0;
+        for( i in 0...totalTriangles ){
+            pen.pos = i;
+            var l = mesh.vertices.length;
+            mesh.vertices[ l ]     = data.ax;
+            mesh.vertices[ l + 1 ] = data.ay;
+            mesh.vertices[ l + 2 ] = data.bx;
+            mesh.vertices[ l + 3 ] = data.by;
+            mesh.vertices[ l + 4 ] = data.cx;
+            mesh.vertices[ l + 5 ] = data.cy;
+            l = mesh.colors.length;
+            mesh.colors[ l ]     = data.color;
+            mesh.colors[ l + 1 ] = data.color;
+            mesh.colors[ l + 2 ] = data.color;
+            l = mesh.indices.length;
+            mesh.indices[ l ] = count;
+            count++;
+            mesh.indices[ l + 1 ] = count;
+            count++;
+            mesh.indices[ l + 2 ] = count;
+            count++;
+        }
     }
     /**
      * draws Kiwi svg
@@ -200,10 +202,10 @@ class MainScene extends Scene {
     }
     
     // elipses
-    var crimson     = 0xDC143C;
-    var silver      = 0xC0C0C0;
-    var gainsboro   = 0xDCDCDC;
-    var lightGray   = 0xD3D3D3;
+    var crimson     = 0xFFDC143C;
+    var silver      = 0xFFC0C0C0;
+    var gainsboro   = 0xFFDCDCDC;
+    var lightGray   = 0xFFD3D3D3;
     var arc0_0      = "M 100 200 A 100 50 0.0 0 1 250 150";
     var arc0_1      = "M 100 200 A 100 50 0.0 1 0 250 150";
     var arc0_2      = "M 100 200 A 100 50 0.0 1 1 250 150";
